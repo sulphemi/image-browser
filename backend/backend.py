@@ -11,6 +11,12 @@ app = Flask(__name__);
 
 @app.route("/api/files/")
 def list_images():
+    """
+    Provides a list of files in the root directory
+
+    Output:
+    Array[String]
+    """
     files = [];
     for file in os.listdir(IMAGE_DIRECTORY):
         if (file.lower().endswith(EXTENSIONS)):
@@ -23,6 +29,15 @@ def serve_image(file):
 
 
 def parse_sd_params(data):
+    """
+    Parses the stable diffusion metadata of an image
+
+    Input:
+        data: The metadata of the image as a flat string
+
+    Output:
+    The metadata as a dict
+    """
     raw = data.get("parameters", "");
     lines = raw.split("\n");
     result = dict();
@@ -38,6 +53,14 @@ def parse_sd_params(data):
 
 @app.route("/api/files/<path:file>/metadata")
 def serve_metadata(file):
+    """
+    Gets the stable diffusion metadata of an image
+
+    Output:
+    {
+        String : String
+    }
+    """
     image = Image.open(IMAGE_DIRECTORY + file);
     png_info = image.info;
     return jsonify(parse_sd_params(png_info));
