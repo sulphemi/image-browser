@@ -13,6 +13,10 @@ function ImagePage() {
       .catch(err => console.error("Error: fetch failed", err))
   }, [ sanitizedFilename ])
 
+  useEffect(() => {
+    document.title = sanitizedFilename
+  }, [])
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="flex w-[100%] h-screen">
