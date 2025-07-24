@@ -1,34 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [files, setFiles] = useState([])
+
+  useEffect(() => {
+    fetch('/api/files/')
+      .then(res => res.json())
+      .then(data => setFiles(data))
+      .catch(err => console.error("Error: Fetch failed", err))
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-2xl font-bold mb-4">bleh bleh bleh bleh</h1>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 cursor-pointer">
+        {files.map((file, idx) => (
+          <div key={idx} className="overflow-hidden rounded-xl shadow-md bg-white p-2">
+            <img src={`/api/files/${encodeURIComponent(file)}`} alt={file}
+              className="w-full h-80 object-cover rounded-lg transition-transform duration-200 hover:brightness-110"
+            />
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <h1 class="text-3x1 font-bold underline">Hello World</h1>
-    </>
+    </div>
   )
 }
 
