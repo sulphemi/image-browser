@@ -39,7 +39,8 @@ def parse_sd_params(data):
     The metadata as a dict
     """
     raw = data.get("parameters", "");
-    lines = raw.split("\n");
+    newline_index = raw.rfind("\n");
+    lines = [ raw[:newline_index], raw[newline_index + 1:] ];
     result = dict();
     if (lines):
         result["tags"] = [tag.strip() for tag in lines[0].split(",")];
