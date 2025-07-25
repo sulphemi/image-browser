@@ -25,3 +25,6 @@ dist-ssr
 
 # pycache
 __pycache__
+
+# backend directory
+backend/images/*
