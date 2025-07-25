@@ -19,13 +19,35 @@ function ImagePage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      <div className="absolute">
+        <a href="/">
+          <p className="text-white p-4">Back</p>
+        </a>
+      </div>
+    
       <div className="flex w-[100%] h-screen">
-        <div className="bg-black w-[80%]">
+        <div className="bg-gray-800 w-[80%]">
           <img src={`/api/files/${sanitizedFilename}`} alt={filename}
             className="mx-auto max-h-[100%]"/>
         </div>
         <div className="rounded-m p-8 bg-white w-[20%] break-words min-w-100">
-          <p className="">{JSON.stringify(metadata)}</p>
+          {metadata ? (Object.entries(metadata).map(([key, value]) => (
+            <div key={key}>
+              <h2 className="font-bold uppercase">{key}</h2>
+              {Array.isArray(value) ? (
+                <ul>
+                  {value.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>{value}</p>
+              )}
+              <br />
+            </div>
+          ))) : (
+            <p>No metadata available</p>
+          )}
         </div>
       </div>
     </div>
