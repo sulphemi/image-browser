@@ -35,7 +35,7 @@ function ImagePage() {
             <div key={key}>
               <h2 className="font-bold uppercase">{key}</h2>
               {Array.isArray(value) ? (
-                <ul>
+                <ul className="overflow-scroll max-h-100">
                   {value.map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
