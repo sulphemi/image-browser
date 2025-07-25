@@ -22,7 +22,7 @@ function ImagePage() {
       <div className="flex w-[100%] h-screen">
         <div className="bg-black w-[80%]">
           <img src={`/api/files/${sanitizedFilename}`} alt={filename}
-            className="mx-auto"/>
+            className="mx-auto max-h-[100%]"/>
         </div>
         <div className="rounded-m p-8 bg-white w-[20%] break-words min-w-100">
           <p className="">{JSON.stringify(metadata)}</p>
