@@ -37,6 +37,7 @@ function Gallery() {
         >
           Prev
         </button>
+        <p className="text-center text-sm m-1">Page {currentPage} of {Math.ceil(files.length / itemsPerPage)}</p>
         <button
           onClick={() =>
             setCurrentPage(p => (p * itemsPerPage < files.length ? p + 1 : p))
