@@ -3,7 +3,7 @@ import Card from "../components/Card.tsx"
 
 function Gallery() {
   const [files, setFiles] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(parseInt(sessionStorage.getItem("returnTo")) || 1)
   const itemsPerPage = 10
 
   const startIndex = (currentPage - 1) * itemsPerPage
@@ -19,6 +19,10 @@ function Gallery() {
   useEffect(() => {
     document.title = "Gallery"
   })
+
+  useEffect(() => {
+    sessionStorage.setItem("returnTo", currentPage)
+  }, [currentPage])
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
