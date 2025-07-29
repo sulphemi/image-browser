@@ -1,4 +1,5 @@
 IMAGE_DIRECTORY = "./images/"
+THUMB_DIRECTORY = "./thumbs/"
 
 EXTENSIONS = (
     ".txt",
@@ -8,3 +9,6 @@ EXTENSIONS = (
     ".gif",
     ".webp",
 )
+
+THUMB_WIDTH = 200
+THUMB_HEIGHT = 200
