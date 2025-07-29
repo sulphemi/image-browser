@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 function ImagePage() {
   const { filename } = useParams()
   const [ metadata, setMetadata ] = useState(null);
-  const sanitizedFilename = encodeURIComponent(filename);
+  const sanitizedFilename = filename ? encodeURIComponent(filename) : "unknown";
 
   useEffect(() => {
     fetch(`/api/files/${sanitizedFilename}/metadata`)
@@ -41,7 +41,7 @@ function ImagePage() {
                   ))}
                 </ul>
               ) : (
-                <p>{value}</p>
+                <p>{String(value)}</p>
               )}
               <br />
             </div>

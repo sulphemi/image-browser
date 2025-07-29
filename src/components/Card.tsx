@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom"
 
-function Card({ file }) {
+interface CardProps {
+  file: string
+}
+
+function Card({ file }: CardProps) {
   return (
     <Link to={`./image/${file}`}>
       <div className="rounded-xl shadow-md bg-white p-2 cursor-pointer">
