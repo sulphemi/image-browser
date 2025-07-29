@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom"
+
 function Card({ file }) {
   return (
-    <a href={`./image/${file}`}>
+    <Link to={`./image/${file}`}>
       <div className="rounded-xl shadow-md bg-white p-2 cursor-pointer">
         <div className="w-full aspect-[1/1] overflow-hidden">
           <img src={`/api/files/${encodeURIComponent(file)}/thumb`} alt={file}
@@ -8,7 +10,7 @@ function Card({ file }) {
           />
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 

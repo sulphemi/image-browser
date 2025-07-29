@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 function ImagePage() {
@@ -20,9 +20,9 @@ function ImagePage() {
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="absolute">
-        <a href="/">
+        <Link to="/">
           <p className="text-white p-4">Back</p>
-        </a>
+        </Link>
       </div>
     
       <div className="flex w-[100%] h-screen">
