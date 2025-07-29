@@ -3,6 +3,11 @@ import Card from "../components/Card.tsx"
 
 function Gallery() {
   const [files, setFiles] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
+
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const currentFiles = files.slice(startIndex, startIndex + itemsPerPage)
 
   useEffect(() => {
     fetch("/api/files/")
@@ -19,9 +24,28 @@ function Gallery() {
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-2xl font-bold mb-4">bleh bleh bleh bleh</h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {files.map((file, idx) => (
+        {currentFiles.map((file, idx) => (
           <Card key={idx} file={file} />
-       ))}
+        ))}
+      </div>
+
+      <div className="flex justify-center mt-6 gap-2">
+        <button
+          onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-3 py-1 bg-white rounded shadow disabled:opacity-50"
+        >
+          Prev
+        </button>
+        <button
+          onClick={() =>
+            setCurrentPage(p => (p * itemsPerPage < files.length ? p + 1 : p))
+          }
+          disabled={currentPage * itemsPerPage >= files.length}
+          className="px-3 py-1 bg-white rounded shadow disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
   )
