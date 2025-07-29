@@ -30,7 +30,7 @@ function ImagePage() {
           <img src={`/api/files/${sanitizedFilename}`} alt={filename}
             className="mx-auto max-h-[100%]"/>
         </div>
-        <div className="rounded-m p-8 bg-white w-[20%] break-words min-w-100">
+        <div className="rounded-m p-8 bg-white w-[20%] break-words min-w-100 overflow-scroll">
           {metadata ? (Object.entries(metadata).map(([key, value]) => (
             <div key={key}>
               <h2 className="font-bold uppercase">{key}</h2>
