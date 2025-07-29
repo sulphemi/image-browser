@@ -67,14 +67,20 @@ def serve_metadata(file):
     return jsonify(parse_sd_params(png_info));
 
 
-def create_thumbnail(file):
+def create_thumbnail(file, thumb_size):
     """
-    Creates a thumbnail for the specified image and saves it for 
+    Creates a square thumbnail of the given image
     """
     image = Image.open(IMAGE_DIRECTORY + file);
-    image.thumbnail(( THUMB_WIDTH, THUMB_HEIGHT ));
-    image.save(THUMB_DIRECTORY + file);
 
+    min_side = min(image.width, image.height);
+    left = (image.width - min_side) // 2;
+    top = (image.height - min_side) // 2;
+    right = left + min_side;
+    bottom = top + min_side;
+    image = image.crop(( left, top, right, bottom ));
+    image = image.resize(( thumb_size, thumb_size ), Image.LANCZOS);
+    image.save(THUMB_DIRECTORY + file);
 
 @app.route("/api/files/<path:file>/thumb")
 def serve_thumb(file):
@@ -82,7 +88,7 @@ def serve_thumb(file):
     Serves a thumbnail for the given file
     """
     if (not os.path.isfile(THUMB_DIRECTORY + file)):
-        create_thumbnail(file);
+        create_thumbnail(file, THUMB_SIZE);
     return send_from_directory(THUMB_DIRECTORY, file);
 
 
