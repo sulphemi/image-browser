@@ -21,7 +21,7 @@ function ImagePage() {
     <div className="min-h-screen bg-gray-100">
       <div className="absolute">
         <Link to="/">
-          <p className="text-white p-4">Back</p>
+          <p className="text-white p-4 text-xl">Back</p>
         </Link>
       </div>
     
