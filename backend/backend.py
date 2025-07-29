@@ -80,16 +80,16 @@ def create_thumbnail(file, thumb_size):
     bottom = top + min_side;
     image = image.crop(( left, top, right, bottom ));
     image = image.resize(( thumb_size, thumb_size ), Image.LANCZOS);
-    image.save(THUMB_DIRECTORY + file);
+    image.save(THUMB_DIRECTORY + file + ".thumb.jpg", "JPEG", quality=THUMB_QUALITY);
 
 @app.route("/api/files/<path:file>/thumb")
 def serve_thumb(file):
     """
     Serves a thumbnail for the given file
     """
-    if (not os.path.isfile(THUMB_DIRECTORY + file)):
+    if (not os.path.isfile(THUMB_DIRECTORY + file + ".thumb.jpg")):
         create_thumbnail(file, THUMB_SIZE);
-    return send_from_directory(THUMB_DIRECTORY, file);
+    return send_from_directory(THUMB_DIRECTORY, file + ".thumb.jpg");
 
 
 if (__name__ == "__main__"):
