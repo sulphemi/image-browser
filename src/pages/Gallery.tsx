@@ -1,22 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Card from "../components/Card.tsx"
+import FilelistContext from "../context/FilelistContext.tsx"
 
 function Gallery() {
-  const [files, setFiles] = useState([])
+  const { files } = useContext(FilelistContext)
   const savedPage = sessionStorage.getItem("returnTo")
   const initialPage = savedPage ? parseInt(savedPage) : 1
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const itemsPerPage = 10
 
   const startIndex = (currentPage - 1) * itemsPerPage
-  const currentFiles = files.slice(startIndex, startIndex + itemsPerPage)
-
-  useEffect(() => {
-    fetch("/api/files/")
-      .then(res => res.json())
-      .then(data => setFiles(data))
-      .catch(err => console.error("Error: Fetch failed", err))
-  }, [])
+  const currentFiles = files ? files.slice(startIndex, startIndex + itemsPerPage) : []
 
   useEffect(() => {
     document.title = "Gallery"
