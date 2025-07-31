@@ -1,10 +1,13 @@
 import { useParams, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import FilelistContext from "../context/FilelistContext.tsx"
 
 function ImagePage() {
+  const { files, setFiles } = useContext(FilelistContext)
   const { filename } = useParams()
   const [ metadata, setMetadata ] = useState(null);
   const sanitizedFilename = filename ? encodeURIComponent(filename) : "unknown";
+  const imageIndex = parseInt(localStorage.getItem("imageIndex")) || 0
 
   useEffect(() => {
     fetch(`/api/files/${sanitizedFilename}/metadata`)
@@ -48,6 +51,12 @@ function ImagePage() {
           ))) : (
             <p>No metadata available</p>
           )}
+
+          <Link to={`../image/${files[imageIndex + 1]}`} 
+            disabled={imageIndex == files.length}
+          >
+            Next
+          </Link>
         </div>
       </div>
     </div>
